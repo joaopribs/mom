@@ -60,8 +60,8 @@ public class ModulesStudy implements Study {
 		List<String> contributors = new ArrayList<String>();
 		
 		for (String module : this.modules) {
-			Map<String, Integer> numberOfCommitsPerUser = new HashMap<String, Integer>();
-			committersPerModule.put(module, numberOfCommitsPerUser);
+			Map<String, Integer> numberOfCommitsPerDeveloper = new HashMap<String, Integer>();
+			committersPerModule.put(module, numberOfCommitsPerDeveloper);
 			totalCommitsPerModule.put(module, 0);
 		}
 		
@@ -80,7 +80,7 @@ public class ModulesStudy implements Study {
 		
 		for (Entry<String, Map<String, Integer>> committersPerModuleEntry : committersPerModule.entrySet()) {
 			String module = committersPerModuleEntry.getKey();
-			Map<String, Integer> numberOfCommitsPerUser = committersPerModuleEntry.getValue();
+			Map<String, Integer> numberOfCommitsPerDeveloper = committersPerModuleEntry.getValue();
 			
 			int totalCommitsForThisModule = totalCommitsPerModule.get(module);
 			
@@ -89,9 +89,9 @@ public class ModulesStudy implements Study {
 			double totalPercentage = 0;
 			double lastPercentage = -1;
 			
-			for (Entry<String, Integer> numberOfCommitsPerUserEntry : numberOfCommitsPerUser.entrySet()) {
-				String email = numberOfCommitsPerUserEntry.getKey();
-				Integer numberOfCommits = numberOfCommitsPerUserEntry.getValue();
+			for (Entry<String, Integer> numberOfCommitsPerDeveloperEntry : numberOfCommitsPerDeveloper.entrySet()) {
+				String email = numberOfCommitsPerDeveloperEntry.getKey();
+				Integer numberOfCommits = numberOfCommitsPerDeveloperEntry.getValue();
 				
 				double percentage = (double) numberOfCommits / totalCommitsForThisModule;
 				
@@ -216,11 +216,11 @@ public class ModulesStudy implements Study {
 			List<String> line = new ArrayList<String>();
 			line.add("");
 			
-			int usersIndex = 1;
+			int developersIndex = 1;
 			for (String email : emails) {
-				line.add("d" + usersIndex);
-				System.out.println(" - d" + usersIndex + ": " + email);
-				usersIndex++;
+				line.add("d" + developersIndex);
+				System.out.println(" - d" + developersIndex + ": " + email);
+				developersIndex++;
 			}
 			
 			printWriter.println(StringUtils.join(line, ","));

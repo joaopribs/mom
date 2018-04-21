@@ -33,15 +33,15 @@ public class ModulesVisitor implements CommitVisitor {
 			String filePath = modification.getNewPath();
 			
 			for (String module : this.modulesToWhichItBelongs(filePath)) {
-				Map<String, Integer> numberOfCommitsPerUser = this.committersPerModule.get(module);
+				Map<String, Integer> numberOfCommitsPerDeveloper = this.committersPerModule.get(module);
 				
-				email = this.similarUser(email, module);
+				email = this.similarDeveloper(email, module);
 				
-				if (numberOfCommitsPerUser.get(email) == null) {
-					numberOfCommitsPerUser.put(email, 1);
+				if (numberOfCommitsPerDeveloper.get(email) == null) {
+					numberOfCommitsPerDeveloper.put(email, 1);
 				}
 				else {
-					numberOfCommitsPerUser.put(email, numberOfCommitsPerUser.get(email) + 1);					
+					numberOfCommitsPerDeveloper.put(email, numberOfCommitsPerDeveloper.get(email) + 1);					
 				}
 				
 				this.totalCommitsPerModule.put(module, this.totalCommitsPerModule.get(module) + 1);
@@ -53,50 +53,14 @@ public class ModulesVisitor implements CommitVisitor {
 		}
 	}
 	
-	private String similarUser(String email, String module) {
+	private String similarDeveloper(String email, String module) {
 		String emailFirstPart = email.split("@")[0];
-		String emailSecondPart = email.split("@")[1];
 		
-		String[] emailPointParts;
-		if (emailFirstPart.contains(".")) {
-			emailPointParts = emailFirstPart.split(".");	
-		}
-		else {
-			emailPointParts = new String[] {emailFirstPart};
-		}
-		
-		for (String user : this.contributors) {
-			if (user.startsWith(emailFirstPart)) {
-				return user;
-			}
+		for (String developerEmail : this.contributors) {
+			String developerEmailFirstPart = developerEmail.split("@")[0];
 			
-			String userFirstPart = user.split("@")[0];
-			String userSecondPart = user.split("@")[1];
-			
-			if (emailSecondPart.equals(userSecondPart) && 
-					(emailFirstPart.startsWith(userFirstPart) || userFirstPart.startsWith(emailFirstPart))) {
-				return user;
-			}
-			
-			String[] userPointParts;
-			if (userFirstPart.contains(".")) {
-				userPointParts = userFirstPart.split(".");				
-			}
-			else {
-				userPointParts = new String[] {userFirstPart};
-			}
-			
-			if (emailPointParts.length == userPointParts.length) {
-				boolean equals = true;
-				for (int i = 0; i < emailPointParts.length; i++) {
-					if (!emailPointParts[i].equals(userPointParts[userPointParts.length - i - 1])) {
-						equals = false;
-						break;
-					}
-				}
-				if (equals) {
-					return user;
-				}
+			if (emailFirstPart.equals(developerEmailFirstPart)) {
+				return developerEmail;
 			}
 		}
 		
