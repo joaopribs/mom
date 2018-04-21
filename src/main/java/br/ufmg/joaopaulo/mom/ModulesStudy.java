@@ -211,15 +211,15 @@ public class ModulesStudy implements Study {
 			FileWriter fileWriter = new FileWriter(file);
 			printWriter = new PrintWriter(fileWriter);
 
-			System.out.println("Users: ");
+			System.out.println("Developers: ");
 			
 			List<String> line = new ArrayList<String>();
 			line.add("");
 			
 			int usersIndex = 1;
 			for (String email : emails) {
-				line.add("u" + usersIndex);
-				System.out.println(" - u" + usersIndex + ": " + email);
+				line.add("d" + usersIndex);
+				System.out.println(" - d" + usersIndex + ": " + email);
 				usersIndex++;
 			}
 			
