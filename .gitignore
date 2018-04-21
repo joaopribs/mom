@@ -1,0 +1,11 @@
+/target
+/matrices
+  
+# Eclipse project files
+.settings
+.classpath
+.project
+.DS_Store
+.iml
+.idea
+workspace.xml
