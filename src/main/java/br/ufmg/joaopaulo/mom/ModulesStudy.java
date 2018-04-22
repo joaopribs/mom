@@ -176,7 +176,7 @@ public class ModulesStudy implements Study {
 
 		System.out.println("5. Modules Organization Matrix");
 
-		this.saveModulesOrganizationMatrix(modulesPerResponsible, responsiblesPerModule);
+		this.saveModuleOwnershipMatrix(modulesPerResponsible, responsiblesPerModule);
 
 		System.out.println("---------------------------------");
 		System.out.println("End");
@@ -192,7 +192,7 @@ public class ModulesStudy implements Study {
 		return null;
 	}
 
-	private void saveModulesOrganizationMatrix(
+	private void saveModuleOwnershipMatrix(
 			Map<String, List<String>> modulesPerResponsible, 
 			Map<String, List<Responsible>> responsiblesPerModule) {
 		modulesPerResponsible = SortUtil.sortMapByTheSizeOfList(modulesPerResponsible, false);
